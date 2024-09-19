@@ -4,7 +4,6 @@ import React from 'react';
 import { TabBarIcon } from '@/components/navigation/TabBarIcon';
 import { Colors } from '@/constants/Colors';
 import { useColorScheme } from '@/hooks/useColorScheme';
-import { FontAwesome } from '@expo/vector-icons';
 
 
 export default function TabLayout() {
@@ -32,7 +31,7 @@ export default function TabLayout() {
         options={{
           title: 'About',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'help' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'information' : 'information-outline'} color={color} />
           ),
         }}
       />
@@ -41,7 +40,7 @@ export default function TabLayout() {
         options={{
           title: 'Volunteer',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'help' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'help' : 'information-outline'} color={color} />
           ),
         }}
       />
@@ -50,7 +49,8 @@ export default function TabLayout() {
         options={{
           title: 'Donate',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            
+            <TabBarIcon name={focused ? 'cash' : 'cash-outline'} color={color} />
           ),
         }}
       />
@@ -59,7 +59,8 @@ export default function TabLayout() {
         options={{
           title: 'Scouts',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+
+            <TabBarIcon name={focused ? 'information' : 'code-slash-outline'} color={color} />
           ),
         }}
       />
@@ -68,7 +69,7 @@ export default function TabLayout() {
         options={{
           title: 'Admin Login',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'person' : 'person-outline'} color={color} />
           ),
         }}
       />
