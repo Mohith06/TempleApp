@@ -34,4 +34,5 @@ export default function RootLayout() {
       </Stack>
     </ThemeProvider>
   );
+  
 }
