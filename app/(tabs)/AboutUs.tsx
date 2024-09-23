@@ -5,133 +5,147 @@ import {
   TouchableOpacity,
   View,
   Image,
+  ScrollView,
 } from "react-native";
 import React from "react";
 
 const About = () => {
   return (
-    <View style={styles.aboutContainer}>
-      <Text style={styles.mainHeader}> Name1 </Text>
-      <Text style={styles.paraStyle}> I am a full stack developer 😀 </Text>
-
-      <View>
-        <Image
-          style={styles.imgStyle}
-          source={{
-            uri: "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-          }}
-        />
-      </View>
-
-      <View style={styles.aboutLayout}>
-        <Text style={styles.aboutSubHeader}> About Me </Text>
-        <Text style={[styles.paraStyle, styles.aboutPara]}>
-          Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-          commodo ligula eget dolor. Lorem ipsum dolor sit amet, consectetuer
-          adipiscing elit. Aenean commodo ligula eget dolor.
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
+      <View style={styles.aboutContainer}>
+        <Text style={styles.mainHeader}>About the Temple</Text>
+        <Text style={styles.paraStyle}>
+          Our temple is a place of peace, spirituality, and community. It was established in [Year] to serve as a sanctuary for worship and fellowship.
         </Text>
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.subHeader}>Origin of the Temple</Text>
+          <Text style={styles.paraStyle}>
+            The temple was founded in [Location] by [Founder's Name] with the mission of creating a space for spiritual growth and community support. Over the years, it has become a focal point for worship and various cultural events.
+          </Text>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.subHeader}>About the Temple</Text>
+          <Text style={styles.paraStyle}>
+            Our temple not only provides a place for worship but also serves as a community center, where individuals from diverse backgrounds come together in harmony.
+          </Text>
+        </View>
+
+        <View style={styles.sectionContainer}>
+          <Text style={styles.subHeader}>Location</Text>
+          <Text style={styles.paraStyle}>
+            You can find us at: 
+            <Text 
+              style={styles.locationLink} 
+              onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=[Insert+Location]")}
+            >
+              [Insert Temple Address]
+            </Text>
+          </Text>
+        </View>
+
+        <Text style={styles.mainHeader}>Sponsors and Priests</Text>
+        <View style={styles.sponsorsContainer}>
+          <TouchableOpacity style={styles.sponsorCard}>
+            <Image
+              style={styles.sponsorImage}
+              source={{ uri: "https://example.com/sponsor1.jpg" }} // Replace with actual image URL
+            />
+            <Text style={styles.sponsorName}>Priest Name 1</Text>
+            <Text style={styles.sponsorRole}>Head Priest</Text>
+            <Text style={styles.paraStyle}>A brief description about the head priest and their contributions to the temple.</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.sponsorCard}>
+            <Image
+              style={styles.sponsorImage}
+              source={{ uri: "https://example.com/sponsor2.jpg" }} // Replace with actual image URL
+            />
+            <Text style={styles.sponsorName}>Priest Name 2</Text>
+            <Text style={styles.sponsorRole}>Assistant Priest</Text>
+            <Text style={styles.paraStyle}>A brief description about the assistant priest and their contributions to the temple.</Text>
+          </TouchableOpacity>
+
+          {/* Add more sponsor cards as needed */}
+        </View>
       </View>
-
-      <Text style={styles.mainHeader}> Follow Me on Social Network </Text>
-
-      <View style={styles.menuContainer}>
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() =>
-            Linking.openURL("https://www.instagram.com/thapatechnical/")
-          }>
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/2111/2111463.png",
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() =>
-            Linking.openURL("https://www.youtube.com/channel/UCwfaAHy4zQUb2APNOGXUCCA")
-          }>
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/187/187210.png",
-            }}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.buttonStyle}
-          onPress={() => Linking.openURL("https://discord.gg/AN8ThRBXtY")}>
-          <Image
-            style={styles.iconStyle}
-            source={{
-              uri: "https://cdn-icons-png.flaticon.com/512/906/906361.png",
-            }}
-          />
-        </TouchableOpacity>
-      </View>
-    </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
-  aboutContainer: {
-    display: "flex",
-    alignItems: "center",
+  scrollContainer: {
+    flexGrow: 1,
+    backgroundColor: '#F5F5DC', // Beige background
   },
-  imgStyle: {
-    width: 150,
-    height: 150,
-    borderRadius: 100,
+  aboutContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingVertical: 20,
+    paddingHorizontal: 15,
   },
   mainHeader: {
-    fontSize: 18,
+    fontSize: 22,
     color: "#344055",
     textTransform: "uppercase",
-    fontWeight: "500",
-    marginTop: 50,
-    marginBottom: 10,
+    fontWeight: "700",
+    marginTop: 20,
+    marginBottom: 5,
     fontFamily: "JosefinSans_700Bold",
+  },
+  subHeader: {
+    fontSize: 20,
+    color: "#4c5dab",
+    fontWeight: "600",
+    marginBottom: 5,
   },
   paraStyle: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#7d7d7d",
-    paddingBottom: 30,
+    paddingVertical: 10,
+    textAlign: 'center',
   },
-  aboutLayout: {
-    backgroundColor: "#4c5dab",
-    paddingHorizontal: 30,
-    marginVertical: 30,
+  locationLink: {
+    color: 'blue',
+    textDecorationLine: 'underline',
   },
-  aboutSubHeader: {
-    fontSize: 18,
-    color: "#fff",
-    textTransform: "uppercase",
-    fontWeight: "500",
+  sectionContainer: {
     marginVertical: 15,
-    fontFamily: "JosefinSans_700Bold",
-    alignSelf: "center",
+    paddingHorizontal: 20,
+    width: '100%',
   },
-  aboutPara: {
-    color: "#fff",
+  sponsorsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap', // Allows wrapping to the next row
+    marginVertical: 20,
+    width: '100%',
   },
-  menuContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-  },
-  buttonStyle: {
-    // Button style definition - customize as per your requirement
+  sponsorCard: {
+    backgroundColor: "#fff",
+    borderRadius: 10,
+    elevation: 3,
+    width: '45%', // Adjust width to fit two cards side by side
+    marginBottom: 15,
     padding: 10,
-    backgroundColor: "#F0F0F0", // Example background color
-    borderRadius: 5,
-    alignItems: "center",
+    alignItems: 'center',
   },
-  iconStyle: {
-    width: 50,
-    height: 50,
+  sponsorImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    marginBottom: 10,
+  },
+  sponsorName: {
+    fontWeight: '600',
+    fontSize: 18,
+    textAlign: 'center',
+  },
+  sponsorRole: {
+    fontSize: 14,
+    color: '#4c5dab',
+    marginBottom: 5,
   },
 });
 
