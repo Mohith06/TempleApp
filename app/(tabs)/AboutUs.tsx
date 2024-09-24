@@ -35,12 +35,12 @@ const About = () => {
         <View style={styles.sectionContainer}>
           <Text style={styles.subHeader}>Location</Text>
           <Text style={styles.paraStyle}>
-            You can find us at: 
+            You can find us at 24801 Botkins Rd, Hockley, TX 77447 Or click this link:
             <Text 
               style={styles.locationLink} 
-              onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=[Insert+Location]")}
+              onPress={() => Linking.openURL("https://www.google.com/maps/search/?api=1&query=[24801 Botkins Rd, Hockley, TX 77447]")}
             >
-              [Insert Temple Address]
+              [Sri Satyanarayana Temple of Greater Houston]
             </Text>
           </Text>
         </View>
