@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, View, TextInput, ScrollView, Dimensions } from 'react-native';
+import { Image, StyleSheet, View, TextInput, ScrollView, Dimensions, FlatList } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import CalendarPicker from 'react-native-calendar-picker'; 
 import moment from 'moment';
-import Carousel from 'react-native-snap-carousel';
 
 const { width: viewportWidth } = Dimensions.get('window');
 
@@ -47,17 +46,21 @@ export default function HomeScreen() {
   };
 
   const images = [
-    require('@/assets/images/image1.jpg'), // Replace with your image paths
-    require('@/assets/images/image2.jpg'),
-    require('@/assets/images/image3.jpg'),
+    require('@/assets/images/Temple.png'), // replace these images
+    require('@/assets/images/favicon.png'),
+    require('@/assets/images/Temple.png'),
   ];
+
+  const renderImage = ({ item }: { item: any }) => (
+    <Image source={item} style={styles.carouselImage} />
+  );
 
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.header}>
           <Image
-            source={require('@/assets/images/Temple.png')} // Replace with your logo path here
+            source={require('@/assets/images/Temple.png')} // find better image
             style={styles.logo}
           />
           <ThemedText type="title" style={styles.title}>
@@ -66,32 +69,22 @@ export default function HomeScreen() {
         </View>
         <View style={styles.headerBorder} />
 
-        {/* Slideshow Component */}
+        {/* Flatlist slideshow */}
         <View style={styles.carouselContainer}>
-          <Carousel
+          <FlatList
             data={images}
-            renderItem={({ item }) => (
-              <Image
-                source={item}
-                style={styles.carouselImage}
-              />
-            )}
-            sliderWidth={viewportWidth}
-            itemWidth={viewportWidth}
-            autoplay
-            loop
+            renderItem={renderImage}
+            horizontal
+            keyExtractor={(_, index) => index.toString()}
+            showsHorizontalScrollIndicator={false}
+            pagingEnabled
           />
         </View>
 
         <ThemedView style={styles.calendarContainer}>
           <ThemedText type="subtitle">Select a Date</ThemedText>
-          <CalendarPicker
-            onDateChange={handleDateChange}
-            width={300}
-          />
-          {selectedDate && (
-            <ThemedText>Selected Date: {selectedDate}</ThemedText>
-          )}
+          <CalendarPicker onDateChange={handleDateChange} width={300} />
+          {selectedDate && <ThemedText>Selected Date: {selectedDate}</ThemedText>}
         </ThemedView>
 
         <UpcomingEvents events={events} />
@@ -148,13 +141,13 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     overflow: 'hidden',
     width: '100%',
-    height: 200, // Set height for slideshow
+    height: 200,
     marginBottom: 16,
   },
   carouselImage: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover', // Change this to 'contain' if needed
+    width: viewportWidth,
+    height: 200,
+    resizeMode: 'cover',
   },
   calendarContainer: {
     marginBottom: 16,

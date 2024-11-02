@@ -10,9 +10,9 @@ const Donate = () => {
   const [description, setDescription] = useState('');
 
   const handleSubmit = () => {
-    // Handle the donation submission logic
+    
     console.log('Donation Details:', name, email, donationAmount, description);
-    // Clear the form after submission if desired
+    
     setName('');
     setEmail('');
     setDonationAmount('');

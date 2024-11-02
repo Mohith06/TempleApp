@@ -3,7 +3,7 @@ import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity } from 'react
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-// Define a type for past scout service projects
+// define past service projects type
 interface PastProject {
   name: string;
   email: string;

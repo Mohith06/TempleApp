@@ -29,9 +29,9 @@ const VolunteerSignUpScreen = () => {
   };
 
   const handleSubmit = (eventId: string) => {
-    // Handle sign up submission logic here (e.g., save to database, show a message, etc.)
+    
     console.log('Submitted:', signUps[eventId]);
-    // Clear the form after submission if desired
+    
     setSignUps(prev => ({
       ...prev,
       [eventId]: { name: '', phone: '', email: '' },

@@ -50,7 +50,7 @@ const About = () => {
           <TouchableOpacity style={styles.sponsorCard}>
             <Image
               style={styles.sponsorImage}
-              source={{ uri: "https://example.com/sponsor1.jpg" }} // Replace with actual image URL
+              source={{ uri: "https://example.com/sponsor1.jpg" }} // wait until get pictures from temple 
             />
             <Text style={styles.sponsorName}>Priest Name 1</Text>
             <Text style={styles.sponsorRole}>Head Priest</Text>
@@ -60,14 +60,14 @@ const About = () => {
           <TouchableOpacity style={styles.sponsorCard}>
             <Image
               style={styles.sponsorImage}
-              source={{ uri: "https://example.com/sponsor2.jpg" }} // Replace with actual image URL
+              source={{ uri: "https://example.com/sponsor2.jpg" }} // same as above, just wait until get image
             />
             <Text style={styles.sponsorName}>Priest Name 2</Text>
             <Text style={styles.sponsorRole}>Assistant Priest</Text>
             <Text style={styles.paraStyle}>A brief description about the assistant priest and their contributions to the temple.</Text>
           </TouchableOpacity>
 
-          {/* Add more sponsor cards as needed */}
+          
         </View>
       </View>
     </ScrollView>
@@ -118,7 +118,7 @@ const styles = StyleSheet.create({
   sponsorsContainer: {
     flexDirection: 'row',
     justifyContent: 'space-around',
-    flexWrap: 'wrap', // Allows wrapping to the next row
+    flexWrap: 'wrap', 
     marginVertical: 20,
     width: '100%',
   },
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     borderRadius: 10,
     elevation: 3,
-    width: '45%', // Adjust width to fit two cards side by side
+    width: '45%', // adjust if needed
     marginBottom: 15,
     padding: 10,
     alignItems: 'center',

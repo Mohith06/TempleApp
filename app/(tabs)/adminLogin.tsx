@@ -9,10 +9,10 @@ export default function AdminLogin() {
     const [password, setPassword] = useState("");
 
     const handleLogin = () => {
-        // Simulate login
-        if (username === "admin" && password === "password") { // Replace with proper validation
+        //login
+        if (username === "admin" && password === "password") { // replace this later with actual login validation
             Alert.alert("Login Successful!", "You can now edit pages and add events.");
-            // Navigate to Admin Panel or initiating the edit actions goes here
+            // navigate to Admin Panel or initiating the edit actions goes here when got stuff
         } else {
             Alert.alert("Login Failed!", "Invalid credentials. Please try again.");
         }
