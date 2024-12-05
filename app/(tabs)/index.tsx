@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, View, TextInput, ScrollView, Dimensions, FlatList } from 'react-native';
+import { Image, StyleSheet, View, ScrollView, Dimensions, FlatList } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
-import CalendarPicker from 'react-native-calendar-picker'; 
+import CalendarPicker from 'react-native-calendar-picker';
 import moment from 'moment';
 
 const { width: viewportWidth } = Dimensions.get('window');
@@ -34,7 +34,6 @@ const UpcomingEvents: React.FC<UpcomingEventsProps> = ({ events }) => {
 };
 
 export default function HomeScreen() {
-  const [news, setNews] = useState('');
   const [selectedDate, setSelectedDate] = useState<string | null>(null);
   const [events, setEvents] = useState<Event[]>([]);
 
@@ -88,17 +87,6 @@ export default function HomeScreen() {
         </ThemedView>
 
         <UpcomingEvents events={events} />
-
-        <ThemedView style={styles.newsContainer}>
-          <ThemedText type="subtitle">News</ThemedText>
-          <TextInput
-            style={styles.input}
-            multiline
-            placeholder="Write your news here..."
-            value={news}
-            onChangeText={setNews}
-          />
-        </ThemedView>
       </ScrollView>
     </ThemedView>
   );
@@ -161,17 +149,5 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
-  },
-  newsContainer: {
-    marginBottom: 16,
-    width: '100%',
-  },
-  input: {
-    height: 100,
-    borderColor: 'gray',
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 8,
-    width: '100%',
   },
 });
