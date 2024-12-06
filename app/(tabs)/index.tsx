@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, StyleSheet, View, ScrollView, Dimensions, FlatList } from 'react-native';
+import { Image, StyleSheet, View, ScrollView, Dimensions, FlatList, Platform, StatusBar } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import CalendarPicker from 'react-native-calendar-picker';
@@ -44,22 +44,12 @@ export default function HomeScreen() {
     setEvents([...events, { title: `Event on ${dateString}`, date: formattedDate }]);
   };
 
-  const images = [
-    require('@/assets/images/Temple.png'), // replace these images
-    require('@/assets/images/favicon.png'),
-    require('@/assets/images/Temple.png'),
-  ];
-
-  const renderImage = ({ item }: { item: any }) => (
-    <Image source={item} style={styles.carouselImage} />
-  );
-
   return (
     <ThemedView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.header}>
           <Image
-            source={require('@/assets/images/Temple.png')} // find better image
+            source={require('@/assets/images/Temple.png')} // Replace with your logo
             style={styles.logo}
           />
           <ThemedText type="title" style={styles.title}>
@@ -68,18 +58,6 @@ export default function HomeScreen() {
         </View>
         <View style={styles.headerBorder} />
 
-        {/* Flatlist slideshow */}
-        <View style={styles.carouselContainer}>
-          <FlatList
-            data={images}
-            renderItem={renderImage}
-            horizontal
-            keyExtractor={(_, index) => index.toString()}
-            showsHorizontalScrollIndicator={false}
-            pagingEnabled
-          />
-        </View>
-
         <ThemedView style={styles.calendarContainer}>
           <ThemedText type="subtitle">Select a Date</ThemedText>
           <CalendarPicker onDateChange={handleDateChange} width={300} />
@@ -87,6 +65,29 @@ export default function HomeScreen() {
         </ThemedView>
 
         <UpcomingEvents events={events} />
+
+        <View style={styles.timingsContainer}>
+          <ThemedText type="subtitle">Temple Timings</ThemedText>
+          <ThemedText>
+            Monday thru Friday – 10:00 am – 12:00 pm & 6:30 pm – 8:30 pm{'\n'}
+            Saturday & Sunday – 8:00 am – 1:00 pm & 5:30 pm – 9:00 pm
+          </ThemedText>
+          <ThemedText type="subtitle">Aarthi Timings</ThemedText>
+          <ThemedText>
+            Mornings{'\n'}
+            11:00 am – Sai Baba Madyan Aarthi{'\n'}
+            11:30 am – Sri Satyanarayana Aarthi{'\n'}
+            Evenings{'\n'}
+            7:00 pm – Sai Baba Dhoop Aarthi{'\n'}
+            8:00 pm – Sri Satyanarayana Aarthi
+          </ThemedText>
+          <ThemedText type="subtitle">Special Aarthi Timings</ThemedText>
+          <ThemedText>
+            Thursdays{'\n'}
+            10:30 am – Kakad Aarthi{'\n'}
+            8:30 pm – Shej Aarthi
+          </ThemedText>
+        </View>
       </ScrollView>
     </ThemedView>
   );
@@ -96,6 +97,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5dc',
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 0) + 30 : 30, // Safe fallback for StatusBar.currentHeight
   },
   scrollContainer: {
     flexGrow: 1,
@@ -123,20 +125,6 @@ const styles = StyleSheet.create({
     width: '100%',
     marginBottom: 16,
   },
-  carouselContainer: {
-    borderWidth: 2,
-    borderColor: 'brown',
-    borderRadius: 8,
-    overflow: 'hidden',
-    width: '100%',
-    height: 200,
-    marginBottom: 16,
-  },
-  carouselImage: {
-    width: viewportWidth,
-    height: 200,
-    resizeMode: 'cover',
-  },
   calendarContainer: {
     marginBottom: 16,
     width: '100%',
@@ -149,5 +137,14 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 1,
     borderBottomColor: '#ccc',
+  },
+  timingsContainer: {
+    marginBottom: 16,
+    width: '100%',
+    padding: 16,
+    backgroundColor: '#fff',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#ccc',
   },
 });
