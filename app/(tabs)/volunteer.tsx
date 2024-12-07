@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, FlatList, Platform, StatusBar } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Collapsible } from '@/components/Collapsible';
 
+// Predefined events list
 const events = [
   { id: '1', title: 'Community Clean-up', date: 'September 15, 2023' },
   { id: '2', title: 'Food Drive', date: 'October 20, 2023' },
@@ -21,7 +22,7 @@ const VolunteerSignUpScreen = () => {
         ...prev[eventId],
         [field]: value,
       },
-    }))
+    }));
   };
 
   const handleToggleDropdown = (eventId: string) => {
@@ -29,9 +30,7 @@ const VolunteerSignUpScreen = () => {
   };
 
   const handleSubmit = (eventId: string) => {
-    
     console.log('Submitted:', signUps[eventId]);
-    
     setSignUps(prev => ({
       ...prev,
       [eventId]: { name: '', phone: '', email: '' },
@@ -43,14 +42,18 @@ const VolunteerSignUpScreen = () => {
       <ThemedText type="title" style={styles.title}>
         Volunteer Sign-Up
       </ThemedText>
-      <ScrollView>
-        <ThemedText type="subtitle">Upcoming Events</ThemedText>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ThemedText type="subtitle" style={styles.subtitle}>
+          Upcoming Events
+        </ThemedText>
         <FlatList
           data={events}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
             <View style={styles.eventContainer}>
-              <ThemedText style={styles.eventTitle}>{item.title} - {item.date}</ThemedText>
+              <ThemedText style={styles.eventTitle}>
+                {item.title} - {item.date}
+              </ThemedText>
               <TouchableOpacity onPress={() => handleToggleDropdown(item.id)}>
                 <ThemedText style={styles.dropdownToggle}>
                   {expandedEvent === item.id ? 'Hide Sign-Up' : 'Sign Up'}
@@ -96,13 +99,22 @@ const VolunteerSignUpScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5dc', // beige background
-    padding: 16,
+    backgroundColor: '#f5f5dc', // Beige background
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 0) + 30 : 30, // Adjust for StatusBar
+    paddingHorizontal: 16,
+  },
+  scrollContainer: {
+    paddingBottom: 24, // Add bottom padding for spacing
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 16,
+  },
+  subtitle: {
+    fontSize: 24,
+    marginVertical: 16,
+    fontWeight: '600',
   },
   eventContainer: {
     marginBottom: 20,
@@ -137,6 +149,7 @@ const styles = StyleSheet.create({
   submitButtonText: {
     color: '#fff',
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

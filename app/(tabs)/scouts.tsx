@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity } from 'react-native';
+import {
+  StyleSheet,
+  View,
+  TextInput,
+  ScrollView,
+  TouchableOpacity,
+  Platform,
+  StatusBar,
+} from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 
-// define past service projects type
+// Define past service projects type
 interface PastProject {
   name: string;
   email: string;
@@ -22,7 +30,7 @@ const Scouts = () => {
   const [projectDescription, setProjectDescription] = useState('');
 
   // Initialize pastProjects with a proper type
-  const [pastProjects, setPastProjects] = useState<PastProject[]>([]); // Here is the key fix
+  const [pastProjects, setPastProjects] = useState<PastProject[]>([]);
 
   const handleSubmit = () => {
     const newProject: PastProject = {
@@ -46,8 +54,10 @@ const Scouts = () => {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title" style={styles.title}>Scout Service Project Submission</ThemedText>
-      <ScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <ThemedText type="title" style={styles.title}>
+          Scout Service Project Submission
+        </ThemedText>
         <TextInput
           style={styles.input}
           placeholder="Name"
@@ -87,17 +97,19 @@ const Scouts = () => {
           value={projectDescription}
           onChangeText={setProjectDescription}
         />
-        
         <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
           <ThemedText style={styles.submitButtonText}>Submit Project</ThemedText>
         </TouchableOpacity>
 
-        <ThemedText type="subtitle" style={styles.subtitle}>Past Scout Service Projects</ThemedText>
+        <ThemedText type="subtitle" style={styles.subtitle}>
+          Past Scout Service Projects
+        </ThemedText>
         {pastProjects.map((project, index) => (
           <View key={index} style={styles.projectContainer}>
-            <ThemedText>{project.name} (Troop: {project.troopNumber})</ThemedText>
+            <ThemedText>
+              {project.name} (Troop: {project.troopNumber})
+            </ThemedText>
             <ThemedText>{project.projectDescription}</ThemedText>
-            {/* Add image upload functionality here if needed */}
           </View>
         ))}
       </ScrollView>
@@ -108,13 +120,19 @@ const Scouts = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5dc',
-    padding: 16,
+    backgroundColor: '#f5f5dc', // Beige background
+    paddingTop: Platform.OS === 'android' ? (StatusBar.currentHeight || 0) + 30 : 30, // Safe padding for title
+    paddingHorizontal: 16,
+  },
+  scrollContainer: {
+    flexGrow: 1,
+    paddingBottom: 16, // Ensure full scrolling visibility
   },
   title: {
     fontSize: 28,
     fontWeight: 'bold',
     marginBottom: 16,
+    textAlign: 'center',
   },
   input: {
     height: 40,
