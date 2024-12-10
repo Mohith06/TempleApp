@@ -13,12 +13,8 @@ import { ThemedView } from '@/components/ThemedView';
 
 // Define past service projects type
 interface PastProject {
-  name: string;
-  email: string;
-  phone: string;
-  troopNumber: string;
-  scoutmasterEmail: string;
-  projectDescription: string;
+  title: string;
+  description: string;
 }
 
 const Scouts = () => {
@@ -30,16 +26,28 @@ const Scouts = () => {
   const [projectDescription, setProjectDescription] = useState('');
 
   // Initialize pastProjects with a proper type
-  const [pastProjects, setPastProjects] = useState<PastProject[]>([]);
+  const [pastProjects, setPastProjects] = useState<PastProject[]>([
+    {
+      title: 'Eagle Scout Vegetable / Flower Garden Project: Guhan Gurubaran',
+      description:
+        'Guhan Gurubaran, a 9th grader from Bridgeland High School and member of Scouts, worked on an Eagle Scout volunteer service project for the Satya Narayana Temple, Cypress, TX. Guhan led a vegetable/flower garden building project to help the temple with produce to support and possibly generate additional income in the future. Guhan and his team built the garden out of wood from scratch. The dimensions are 5ft x 2ft x 14in. There are three raised garden beds above the ground. This garden will produce fruits and veggies for the temple. This project was successfully completed.',
+    },
+    {
+      title: 'Eagle Scout Tree Project by: Ruthvik Jonna',
+      description:
+        'Eagle Scout Ruthvik Jonna successfully completed the Tree project at the Temple. He meticulously planned and coordinated to plant a variety of shade trees and fruit trees around the temple. He also made sure to take care of the trees until the roots got well-established. Thanks to Ruthvik for this great effort, which provides shade and fruits, benefiting the temple and the community.',
+    },
+    {
+      title: 'Eagle Scout Park Bench Project by: Tarun Manoharan',
+      description:
+        'Eagle Scout Tarun Manoharan successfully completed the Park Bench project. This project involved three park benches, each seating 8 people comfortably, designed and built from raw wood, treated, and stained to weather-resistant standards. He planned and led this project to completion. This is a great addition to the temple and will help people rest and relax on the benches. Thank you, Tarun, for completing this wonderful project, which will greatly help Sri Satyanarayana Temple and the community.',
+    },
+  ]);
 
   const handleSubmit = () => {
     const newProject: PastProject = {
-      name,
-      email,
-      phone,
-      troopNumber,
-      scoutmasterEmail,
-      projectDescription,
+      title: name, // You can modify this as per your requirement
+      description: projectDescription,
     };
 
     setPastProjects([...pastProjects, newProject]);
@@ -106,10 +114,8 @@ const Scouts = () => {
         </ThemedText>
         {pastProjects.map((project, index) => (
           <View key={index} style={styles.projectContainer}>
-            <ThemedText>
-              {project.name} (Troop: {project.troopNumber})
-            </ThemedText>
-            <ThemedText>{project.projectDescription}</ThemedText>
+            <ThemedText style={styles.projectTitle}>{project.title}</ThemedText>
+            <ThemedText>{project.description}</ThemedText>
           </View>
         ))}
       </ScrollView>
@@ -162,6 +168,11 @@ const styles = StyleSheet.create({
   subtitle: {
     fontSize: 24,
     marginTop: 16,
+    marginBottom: 4,
+  },
+  projectTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
     marginBottom: 4,
   },
 });

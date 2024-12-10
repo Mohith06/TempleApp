@@ -1,19 +1,24 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, FlatList, Platform, StatusBar } from 'react-native';
+import { StyleSheet, View, TextInput, ScrollView, TouchableOpacity, FlatList, Platform, StatusBar, Alert } from 'react-native';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import { Collapsible } from '@/components/Collapsible';
 
-// Predefined events list
+// Predefined events list with sign-up limits
 const events = [
-  { id: '1', title: 'Community Clean-up', date: 'September 15, 2023' },
-  { id: '2', title: 'Food Drive', date: 'October 20, 2023' },
-  { id: '3', title: 'Fundraising Gala', date: 'November 5, 2023' },
+  { id: '1', title: 'Community Clean-up', date: 'December 18, 2024', limit: 8 },
+  { id: '2', title: 'Food Drive', date: 'December 23, 2024', limit: 10 },
+  { id: '3', title: 'Fundraising Gala', date: 'January 8, 2025', limit: 5 },
 ];
 
 const VolunteerSignUpScreen = () => {
   const [expandedEvent, setExpandedEvent] = useState<string | null>(null);
   const [signUps, setSignUps] = useState<{ [key: string]: { name: string; phone: string; email: string } }>({});
+  const [signUpCounts, setSignUpCounts] = useState<{ [key: string]: number }>({
+    '1': 0,
+    '2': 0,
+    '3': 0,
+  });
 
   const handleSignupChange = (eventId: string, field: string, value: string) => {
     setSignUps(prev => ({
@@ -30,11 +35,31 @@ const VolunteerSignUpScreen = () => {
   };
 
   const handleSubmit = (eventId: string) => {
+    const currentCount = signUpCounts[eventId] || 0;
+    const eventLimit = events.find(event => event.id === eventId)?.limit || 0;
+
+    if (currentCount >= eventLimit) {
+      Alert.alert('Sign-Up Full', 'This event has reached its maximum sign-up limit.', [{ text: 'OK' }]);
+      return;
+    }
+
     console.log('Submitted:', signUps[eventId]);
+
+    setSignUpCounts(prev => ({
+      ...prev,
+      [eventId]: currentCount + 1,
+    }));
+
     setSignUps(prev => ({
       ...prev,
       [eventId]: { name: '', phone: '', email: '' },
     }));
+
+    Alert.alert(
+      'Sign-Up Successful',
+      `You have successfully signed up for the event. Spots remaining: ${eventLimit - currentCount - 1}`,
+      [{ text: 'OK' }]
+    );
   };
 
   return (
@@ -53,6 +78,9 @@ const VolunteerSignUpScreen = () => {
             <View style={styles.eventContainer}>
               <ThemedText style={styles.eventTitle}>
                 {item.title} - {item.date}
+              </ThemedText>
+              <ThemedText style={styles.counterText}>
+                {signUpCounts[item.id] || 0}/{item.limit} Spots Taken
               </ThemedText>
               <TouchableOpacity onPress={() => handleToggleDropdown(item.id)}>
                 <ThemedText style={styles.dropdownToggle}>
@@ -126,6 +154,11 @@ const styles = StyleSheet.create({
   eventTitle: {
     fontSize: 18,
     fontWeight: '600',
+  },
+  counterText: {
+    fontSize: 14,
+    color: 'green',
+    marginVertical: 8,
   },
   dropdownToggle: {
     fontSize: 16,
